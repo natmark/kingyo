@@ -1,45 +1,69 @@
-void setup(){
-  size(400,300);
-  background(255);
-  
-pushMatrix(); //(0, 0)を原点とする座標軸をスタックに格納
-scale(2.0, 2.0); // 座標を 幅2.0倍, 高さ4.0倍に拡大
-noStroke();
-fill(200,0,0);
-translate(60, 20); // 座標軸を 右に60px, 下に20px移動
- 
- //head
- beginShape();
-vertex(42.2, 73.4);
-bezierVertex(40.2, 71.5, 38.8, 71.4, 29.6, 64.4);
-bezierVertex(21.9, 59.2, 17.4, 50.6, 11.5, 43.7);
-bezierVertex(11.2, 50.1, 9.5, 49.6, 7.9, 50.2);
-bezierVertex(7.1, 50.6, 6.8, 55.3, 5.8, 55.6);
-bezierVertex(3.3, 56.3, 1.9, 57.1, 1.1, 60.6);
-bezierVertex(-2.2, 63.3, 2.3, 39.8, 10.3, 34.2);
-bezierVertex(8.5, 24.4, 7.3, 1.8, 11.5, 0.7);
-bezierVertex(13.6, -3.1, 35.8, 10.5, 40.9, 20.5);
-bezierVertex(40.9, 20.5, 56.6, 17.3, 67.2, 33.6);
-bezierVertex(59.9, 30.8, 57.8, 28.2, 54.2, 29.0);
-bezierVertex(53.5, 29.2, 52.7, 29.1, 52.0, 28.9);
-bezierVertex(51.1, 28.6, 49.5, 28.2, 47.1, 28.6);
-bezierVertex(51.0, 34.8, 53.0, 62.1, 48.9, 73.1);
-endShape();
+void setup() {
+  size(800, 600);
+}
+boolean tail_dir = false;
+float radian = 0;
+float delta = 0.5;
 
-//tail
-beginShape();
-vertex(43.9, 60.9);
-bezierVertex(44.1, 62.0, 83.8, 84.3, 59.2, 113.1);
-bezierVertex(59.2, 113.1, 65.4, 92.3, 51.4, 87.6);
-bezierVertex(51.4, 87.6, 63.3, 114.3, 47.6, 133.0);
-bezierVertex(48.2, 130.6, 50.2, 113.4, 42.2, 119.6);
-bezierVertex(41.3, 114.3, 40.0, 106.9, 36.3, 108.9);
-bezierVertex(36.3, 108.9, 37.5, 85.5, 34.2, 87.3);
-bezierVertex(34.2, 87.3, 27.4, 117.6, 17.6, 121.7);
-bezierVertex(16.7, 116.7, 22.9, 110.4, 20.1, 97.7);
-bezierVertex(27.7, 89.9, 29.8, 81.9, 21.4, 84.9);
-bezierVertex(10.2, 103.6, 6.0, 103.3, 3.9, 109.2);
-bezierVertex(2.1, 91.4, 7.9, 69.5, 33.7, 61.4);
-endShape();
-popMatrix(); //座標軸の位置をスタックから取り出すし設定する ... この場合(0, 0)
+void draw(){
+   background(255);
+  radian += delta;
+  if(radian < -15){
+    delta = 0.5;
+  }
+  if(radian > 15){
+    delta = -0.5;
+  }
+
+  //tail
+   pushMatrix(); //(0, 0)を原点とする座標軸をスタックに格納
+  scale(2.0, 2.0); // 座標を 幅2.0倍, 高さ4.0倍に拡大
+  noStroke();
+  fill(200, 0, 0);
+  translate(110,80); // 座標軸を 右に60px, 下に20px移動
+  
+  rotate(radians(radian));
+
+  beginShape();
+  vertex(0,0);
+bezierVertex(0.2,1.1,39.9,23.4,15.3,52.2);
+bezierVertex(15.3,52.2,21.5,31.4,7.5,26.7);
+bezierVertex(7.5,26.7,19.4,53.4,3.7,72.1);
+bezierVertex(4.3,69.7,6.3,52.5,-1.7,58.7);
+bezierVertex(-2.6,53.4,-3.9,46,-7.6,48);
+bezierVertex(-7.6,48,-6.4,24.6,-9.7,26.4);
+bezierVertex(-9.7,26.4,-16.5,56.7,-26.3,60.8);
+bezierVertex(-27.2,55.8,-21,49.5,-23.8,36.8);
+bezierVertex(-16.2,29,-14.1,21,-22.5,24);
+bezierVertex(-33.7,42.7,-37.9,42.4,-40,48.3);
+bezierVertex(-41.8,30.5,-36,8.6,-10.2,0.5);
+  endShape();
+    popMatrix(); //座標軸の位置をスタックから取り出すし設定する ... この場合(0, 0)
+
+  //head
+  pushMatrix(); //(0, 0)を原点とする座標軸をスタックに格納
+  scale(2.0, 2.0); // 座標を 幅2.0倍, 高さ4.0倍に拡大
+  noStroke();
+  fill(200, 0, 0);
+  translate(100 ,90);
+    rotate(radians(-radian+20));
+
+  beginShape();
+  vertex(0,0);
+bezierVertex(-2,-1.9,-3.4,-2,-12.6,-9);
+bezierVertex(-20.3,-14.2,-24.8,-22.8,-30.7,-29.7);
+bezierVertex(-31,-23.3,-32.7,-23.8,-34.3,-23.2);
+bezierVertex(-35.1,-22.8,-35.4,-18.1,-36.4,-17.8);
+bezierVertex(-38.9,-17.1,-40.3,-16.3,-41.1,-12.8);
+bezierVertex(-44.4,-10.1,-39.9,-33.6,-31.9,-39.2);
+bezierVertex(-33.7,-49,-34.9,-71.6,-30.7,-72.7);
+bezierVertex(-28.6,-76.5,-6.4,-62.9,-1.3,-52.9);
+bezierVertex(-1.3,-52.9,14.4,-56.1,25,-39.8);
+bezierVertex(17.7,-42.6,15.6,-45.2,12,-44.4);
+bezierVertex(11.3,-44.2,10.5,-44.3,9.8,-44.5);
+bezierVertex(8.9,-44.8,7.3,-45.2,4.9,-44.8);
+bezierVertex(8.8,-38.6,10.8,-11.3,6.7,-0.3);
+
+  endShape();
+  popMatrix(); //座標軸の位置をスタックから取り出すし設定する ... この場合(0, 0)
 }
