@@ -11,8 +11,7 @@ public class RippleManager {
     for (int i = 0; i < scales.size (); i++) {
       PVector scaleSize = scales.get(i);
       scaleSize.add(new PVector(5, 5));
-      println("x:" + scaleSize.x + "y:" + scaleSize.y);
-      if (scaleSize.x > width & scaleSize.y > height ) {
+     if (scaleSize.x > width & scaleSize.y > height ) {
         removes.add(i);
       }
     }    
