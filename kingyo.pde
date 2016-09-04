@@ -449,7 +449,7 @@ Waterweed waterweeds[];
 
 void setup() {
   size(800, 600);
-
+ 
   rippleManager = new RippleManager();
   waterweeds = new Waterweed[3];
   waterweeds[0] = new Waterweed(new PVector(100, height));    
