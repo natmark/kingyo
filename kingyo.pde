@@ -1,3 +1,34 @@
+public class RippleManager{
+   ArrayList<PVector> locations = new ArrayList<PVector>();
+   ArrayList<PVector> scales = new ArrayList<PVector>();
+   void addRipple(PVector loc){
+    locations.add(loc);
+    scales.add(new PVector(0,0));
+  }
+  void update(){
+   ArrayList<Integer> removes = new ArrayList<Integer>();
+    
+    for(int i = 0; i < scales.size();i++){
+      PVector scale = scales.get(i);
+      scale.add(new PVector(5,5));
+      println("x:" + scale.x + "y:" + scale.y);
+      if(scale.x > width & scale.y > height ){
+        removes.add(i);
+      }
+    }    
+    for(Integer i : removes){
+      locations.remove(locations.get(i));
+      scales.remove(scales.get(i));
+    }
+  }
+  void display(){
+    for(int i = 0;i < locations.size();i++){
+      noFill();
+      stroke(140,215,245,(255 - max(scales.get(i).x / 3,0)) );
+      ellipse(locations.get(i).x,locations.get(i).y,scales.get(i).x,scales.get(i).y);
+    }
+  }
+}
 class Kingyo {
   //const
   final float MAX_ACCELERATION = 0.5;
@@ -46,6 +77,9 @@ class Kingyo {
       delta = -0.2;
     }
 
+    if((int)random(1000) == 0){
+            rippleManager.addRipple(this.location);
+    }
 
     PVector dir = PVector.sub(destination, location);
     dir.normalize();
@@ -114,11 +148,15 @@ class Kingyo {
 }
 
 Kingyo[] kingyos = new Kingyo[10];
+RippleManager rippleManager;
 
 void setup() {
   size(800, 600);
+  
+  rippleManager = new RippleManager();
+  
   for(int i = 0;i < kingyos.length;i++){
-    float size = random(0.2,1.5);
+    float size = random(0.2,1);
     int x = int(random(width -50 * size) + 50 * size);
     int y = int(random(height -50 * size) + 50 * size);
     kingyos[i] =  new Kingyo(new PVector(x,y), new PVector(size, size));
@@ -132,6 +170,9 @@ void setup() {
 
 void draw() {
   background(255);
+  rippleManager.update();
+  rippleManager.display();
+
    for (Kingyo kingyo : kingyos) {
     kingyo.update();
     kingyo.display();
