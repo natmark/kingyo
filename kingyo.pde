@@ -1,31 +1,31 @@
-public class RippleManager{
-   ArrayList<PVector> locations = new ArrayList<PVector>();
-   ArrayList<PVector> scales = new ArrayList<PVector>();
-   void addRipple(PVector loc){
+public class RippleManager {
+  ArrayList<PVector> locations = new ArrayList<PVector>();
+  ArrayList<PVector> scales = new ArrayList<PVector>();
+  void addRipple(PVector loc) {
     locations.add(loc);
-    scales.add(new PVector(0,0));
+    scales.add(new PVector(0, 0));
   }
-  void update(){
-   ArrayList<Integer> removes = new ArrayList<Integer>();
-    
-    for(int i = 0; i < scales.size();i++){
+  void update() {
+    ArrayList<Integer> removes = new ArrayList<Integer>();
+
+    for (int i = 0; i < scales.size (); i++) {
       PVector scale = scales.get(i);
-      scale.add(new PVector(5,5));
+      scale.add(new PVector(5, 5));
       println("x:" + scale.x + "y:" + scale.y);
-      if(scale.x > width & scale.y > height ){
+      if (scale.x > width & scale.y > height ) {
         removes.add(i);
       }
     }    
-    for(Integer i : removes){
+    for (Integer i : removes) {
       locations.remove(locations.get(i));
       scales.remove(scales.get(i));
     }
   }
-  void display(){
-    for(int i = 0;i < locations.size();i++){
+  void display() {
+    for (int i = 0; i < locations.size (); i++) {
       noFill();
-      stroke(140,215,245,(255 - max(scales.get(i).x / 3,0)) );
-      ellipse(locations.get(i).x,locations.get(i).y,scales.get(i).x,scales.get(i).y);
+      stroke(140, 215, 245, (255 - max(scales.get(i).x / 3, 0)) );
+      ellipse(locations.get(i).x, locations.get(i).y, scales.get(i).x, scales.get(i).y);
     }
   }
 }
@@ -44,8 +44,8 @@ class Kingyo {
   PVector destination = new PVector();
   PVector acceleration = new PVector();
   PVector velocity = new PVector();
-  color c =  color(200,0,0);
-  
+  color c =  color(200, 0, 0);
+
   Kingyo() {
     location = new PVector(0, 0);
     scale = new PVector(1, 1);
@@ -76,10 +76,9 @@ class Kingyo {
     if (radian > 5) {
       delta = -0.2;
     }
-
-    if((int)random(1000) == 0){
-            rippleManager.addRipple(this.location);
-    }
+     if ((int)random(500) == 0) {
+        rippleManager.addRipple(this.location);
+     }
 
     PVector dir = PVector.sub(destination, location);
     dir.normalize();
@@ -147,22 +146,328 @@ class Kingyo {
   }
 }
 
+class Waterweed {
+  PVector location;
+
+  //tail
+  private float radian = 0;
+  private float delta = 0.05;
+
+
+  Waterweed() {    
+    location = new PVector(0, 0);
+  }
+  Waterweed(PVector location) {    
+    this();
+    this.location = location;
+  }
+  void update() {
+    //tail animation
+    radian += delta;
+    if (radian < -5) {
+      delta = 0.05;
+    }
+    if (radian > 5) {
+      delta = -0.05;
+    }
+  }
+  void display() {
+     
+    pushMatrix();
+    translate(location.x, location.y);
+    rotate(radians(radian));
+    noFill();
+    strokeWeight(2);
+    stroke(0, 200, 0);
+    //(80,250)を起点にする
+    beginShape();
+    vertex(-54.4, -250.0);
+    bezierVertex(-54.4, -242.7, -51.9, -236.7, -48.8, -236.7);
+    endShape();
+    //2//
+    beginShape();
+    vertex(-59.5, -238.6);
+    bezierVertex(-59.5, -237.6, -54.8, -236.7, -48.8, -236.7);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-36.4, -244.9);
+    bezierVertex(-36.4, -240.4, -42.0, -236.7, -48.8, -236.7);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-35.0, -235.4);
+    bezierVertex(-35.0, -236.2, -41.2, -236.7, -48.8, -236.7);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-48.8, -236.7);
+    bezierVertex(-48.8, -232.4, -44.6, -228.9, -39.3, -228.9);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-56.3, -207.7);
+    bezierVertex(-56.3, -205.1, -61.8, -202.9, -68.6, -202.9);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-56.3, -207.7);
+    bezierVertex(-56.3, -202.3, -55.3, -197.9, -54.2, -197.9);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-57.0, -206.4);
+    bezierVertex(-57.0, -203.5, -53.1, -201.1, -48.2, -201.1);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-47.0, -216.3);
+    bezierVertex(-47.0, -211.6, -51.1, -207.7, -56.3, -207.7);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-44.7, -208.6);
+    bezierVertex(-44.7, -208.1, -49.9, -207.7, -56.3, -207.7);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-60.4, -218.1);
+    bezierVertex(-60.4, -212.4, -58.6, -207.7, -56.3, -207.7);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-68.6, -213.8);
+    bezierVertex(-68.6, -210.5, -63.1, -207.7, -56.3, -207.7);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-69.6, -184.2);
+    bezierVertex(-69.6, -177.9, -66.5, -172.7, -62.7, -172.7);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-53.5, -181.1);
+    bezierVertex(-53.5, -176.5, -57.6, -172.7, -62.7, -172.7);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-76.7, -178.5);
+    bezierVertex(-76.7, -175.3, -70.5, -172.7, -62.7, -172.7);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-50.5, -172.7);
+    bezierVertex(-50.5, -172.7, -56.0, -172.7, -62.7, -172.7);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-62.7, -172.7);
+    bezierVertex(-62.7, -172.3, -70.4, -171.9, -80.0, -171.9);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-62.7, -172.7);
+    bezierVertex(-62.7, -168.9, -57.8, -165.7, -51.6, -165.7);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-62.7, -172.7);
+    bezierVertex(-62.7, -168.9, -68.6, -165.7, -75.9, -165.7);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-62.7, -172.7);
+    bezierVertex(-62.7, -166.7, -61.7, -161.8, -60.4, -161.8);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-73.9, -114.1);
+    bezierVertex(-73.9, -108.6, -68.2, -104.2, -61.3, -104.2);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-56.5, -112.5);
+    bezierVertex(-56.5, -107.9, -58.6, -104.2, -61.3, -104.2);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-78.3, -107.3);
+    bezierVertex(-78.3, -104.3, -70.9, -101.9, -61.8, -101.9);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-49.7, -107.3);
+    bezierVertex(-49.7, -104.3, -55.1, -101.9, -61.8, -101.9);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-61.8, -101.9);
+    bezierVertex(-61.8, -98.5, -66.8, -95.6, -73.0, -95.6);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-61.8, -101.9);
+    bezierVertex(-61.8, -100.2, -57.0, -98.8, -51.1, -98.8);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-61.3, -104.2);
+    bezierVertex(-61.3, -97.8, -58.8, -92.6, -55.8, -92.6);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-64.7, -78.8);
+    bezierVertex(-64.7, -74.5, -60.4, -71.0, -55.0, -71.0);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-49.7, -80.3);
+    bezierVertex(-49.7, -75.2, -52.1, -71.0, -55.0, -71.0);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-67.6, -72.4);
+    bezierVertex(-67.6, -70.5, -61.6, -69.0, -54.3, -69.0);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-39.5, -77.2);
+    bezierVertex(-39.5, -72.7, -46.1, -69.0, -54.3, -69.0);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-64.7, -63.0);
+    bezierVertex(-64.7, -66.3, -60.1, -69.0, -54.3, -69.0);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-54.3, -69.0);
+    bezierVertex(-54.3, -66.3, -49.8, -64.1, -44.2, -64.1);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-54.3, -69.0);
+    bezierVertex(-54.3, -64.3, -56.8, -60.6, -59.8, -60.6);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-51.2, -44.1);
+    bezierVertex(-51.2, -41.0, -46.0, -38.4, -39.5, -38.4);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-37.4, -49.699997);
+    bezierVertex(-37.4, -43.5, -38.4, -38.399994, -39.5, -38.399994);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-39.5, -38.4);
+    bezierVertex(-39.5, -37.0, -45.8, -35.8, -53.6, -35.8);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-27.5, -46.2);
+    bezierVertex(-27.5, -41.9, -32.9, -38.4, -39.5, -38.4);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-39.5, -38.4);
+    bezierVertex(-39.5, -33.8, -44.1, -30.1, -49.7, -30.1);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-24.5, -39.2);
+    bezierVertex(-24.5, -38.8, -31.2, -38.3, -39.5, -38.4);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-39.1, -37.1);
+    bezierVertex(-39.1, -31.5, -40.4, -27.0, -42.1, -27.0);
+    endShape();
+
+    //2//
+    beginShape();
+    vertex(-39.1, -37.1);
+    bezierVertex(-39.1, -34.3, -33.9, -32.1, -27.5, -32.1);
+    endShape();
+
+    //2//
+
+    //2///
+    beginShape();
+    vertex(-46.2, -247.0);
+    bezierVertex(-54.8, -212.4, -70.2, -167.4, -62.7, -111.7);
+    bezierVertex(-58.3, -46.1, -20.5, -10.7, -1.3, 5.1);
+    endShape();
+    popMatrix();//座標軸の位置をスタックから取り出すし設定する...この場合(200,200)
+  }
+}
+
+
 Kingyo[] kingyos = new Kingyo[10];
 RippleManager rippleManager;
 
+Waterweed waterweeds[];
+
 void setup() {
   size(800, 600);
-  
+
   rippleManager = new RippleManager();
-  
-  for(int i = 0;i < kingyos.length;i++){
-    float size = random(0.2,1);
+  waterweeds = new Waterweed[3];
+  waterweeds[0] = new Waterweed(new PVector(100, height));    
+  waterweeds[0].radian = 0;
+  waterweeds[1] = new Waterweed(new PVector(130, height));    
+  waterweeds[1].radian = 2;
+  waterweeds[2] = new Waterweed(new PVector(180, height));    
+  waterweeds[2].radian = 3;
+
+  for (int i = 0; i < kingyos.length; i++) {
+    float size = random(0.2, 1.2);
     int x = int(random(width -50 * size) + 50 * size);
     int y = int(random(height -50 * size) + 50 * size);
-    kingyos[i] =  new Kingyo(new PVector(x,y), new PVector(size, size));
-    if(i % 2 == 0){
-      kingyos[i].c = color(200,0,0);
-    }else{
+    kingyos[i] =  new Kingyo(new PVector(x, y), new PVector(size, size));
+    if (i % 2 == 0) {
+      kingyos[i].c = color(200, 0, 0);
+    } else {
       kingyos[i].c = color(0);
     }
   }
@@ -172,10 +477,12 @@ void draw() {
   background(255);
   rippleManager.update();
   rippleManager.display();
-
-   for (Kingyo kingyo : kingyos) {
+  for(Waterweed waterweed :waterweeds){
+    waterweed.update();
+    waterweed.display();
+  }
+  for (Kingyo kingyo : kingyos) {
     kingyo.update();
     kingyo.display();
   }
 }
-
