@@ -11,7 +11,6 @@ public class RippleManager {
     for (int i = 0; i < scales.size (); i++) {
       PVector scale = scales.get(i);
       scale.add(new PVector(5, 5));
-      println("x:" + scale.x + "y:" + scale.y);
       if (scale.x > width & scale.y > height ) {
         removes.add(i);
       }
@@ -76,9 +75,9 @@ class Kingyo {
     if (radian > 5) {
       delta = -0.2;
     }
-     if ((int)random(500) == 0) {
-        rippleManager.addRipple(this.location);
-     }
+    if ((int)random(500) == 0) {
+      rippleManager.addRipple(this.location);
+    }
 
     PVector dir = PVector.sub(destination, location);
     dir.normalize();
@@ -94,55 +93,98 @@ class Kingyo {
     rotate(theta - PI / 2);
     //tail
     pushMatrix(); //(200, 200)を原点とする座標軸をスタックに格納
-    scale(scale.x, scale.y); // 座標を 幅2.0倍, 高さ4.0倍に拡大
+    // Can't use scale() function on Javascript Mode,
+    //scale(scale.x, scale.y); 
     noStroke();
     fill(c);
     translate(10, -10); // 座標軸を 右に60px, 下に20px移動
 
     rotate(radians(radian));
 
+    // Can't use scale() function on Javascript Mode,
+    /*===========================*/
+    //    beginShape();
+    //    vertex(0, 0);
+    //    bezierVertex(0.2, 1.1, 39.9, 23.4, 15.3, 52.2);
+    //    bezierVertex(15.3, 52.2, 21.5, 31.4, 7.5, 26.7);
+    //    bezierVertex(7.5, 26.7, 19.4, 53.4, 3.7, 72.1);
+    //    bezierVertex(4.3, 69.7, 6.3, 52.5, -1.7, 58.7);
+    //    bezierVertex(-2.6, 53.4, -3.9, 46, -7.6, 48);
+    //    bezierVertex(-7.6, 48, -6.4, 24.6, -9.7, 26.4);
+    //    bezierVertex(-9.7, 26.4, -16.5, 56.7, -26.3, 60.8);
+    //    bezierVertex(-27.2, 55.8, -21, 49.5, -23.8, 36.8);
+    //    bezierVertex(-16.2, 29, -14.1, 21, -22.5, 24);
+    //    bezierVertex(-33.7, 42.7, -37.9, 42.4, -40, 48.3);
+    //    bezierVertex(-41.8, 30.5, -36, 8.6, -10.2, 0.5);
+    //    endShape();
+    //    popMatrix(); //座標軸の位置をスタックから取り出すし設定する ... この場合(200,200)
+    /*=========================== */
+
     beginShape();
-    vertex(0, 0);
-    bezierVertex(0.2, 1.1, 39.9, 23.4, 15.3, 52.2);
-    bezierVertex(15.3, 52.2, 21.5, 31.4, 7.5, 26.7);
-    bezierVertex(7.5, 26.7, 19.4, 53.4, 3.7, 72.1);
-    bezierVertex(4.3, 69.7, 6.3, 52.5, -1.7, 58.7);
-    bezierVertex(-2.6, 53.4, -3.9, 46, -7.6, 48);
-    bezierVertex(-7.6, 48, -6.4, 24.6, -9.7, 26.4);
-    bezierVertex(-9.7, 26.4, -16.5, 56.7, -26.3, 60.8);
-    bezierVertex(-27.2, 55.8, -21, 49.5, -23.8, 36.8);
-    bezierVertex(-16.2, 29, -14.1, 21, -22.5, 24);
-    bezierVertex(-33.7, 42.7, -37.9, 42.4, -40, 48.3);
-    bezierVertex(-41.8, 30.5, -36, 8.6, -10.2, 0.5);
+    vertex(0.0*scale.x, 0.0*scale.y);
+    bezierVertex(0.2*scale.x, 1.1*scale.y, 39.9*scale.x, 23.4*scale.y, 15.3*scale.x, 52.2*scale.y);
+    bezierVertex(15.3*scale.x, 52.2*scale.y, 21.5*scale.x, 31.4*scale.y, 7.5*scale.x, 26.7*scale.y);
+    bezierVertex(7.5*scale.x, 26.7*scale.y, 19.4*scale.x, 53.4*scale.y, 3.7*scale.x, 72.1*scale.y);
+    bezierVertex(4.3*scale.x, 69.7*scale.y, 6.3*scale.x, 52.5*scale.y, -1.7*scale.x, 58.7*scale.y);
+    bezierVertex(-2.6*scale.x, 53.4*scale.y, -3.9*scale.x, 46.0*scale.y, -7.6*scale.x, 48.0*scale.y);
+    bezierVertex(-7.6*scale.x, 48.0*scale.y, -6.4*scale.x, 24.6*scale.y, -9.7*scale.x, 26.4*scale.y);
+    bezierVertex(-9.7*scale.x, 26.4*scale.y, -16.5*scale.x, 56.7*scale.y, -26.3*scale.x, 60.8*scale.y);
+    bezierVertex(-27.2*scale.x, 55.8*scale.y, -21.0*scale.x, 49.5*scale.y, -23.8*scale.x, 36.8*scale.y);
+    bezierVertex(-16.2*scale.x, 29.0*scale.y, -14.1*scale.x, 21.0*scale.y, -22.5*scale.x, 24.0*scale.y);
+    bezierVertex(-33.7*scale.x, 42.7*scale.y, -37.9*scale.x, 42.4*scale.y, -40.0*scale.x, 48.3*scale.y);
+    bezierVertex(-41.8*scale.x, 30.5*scale.y, -36.0*scale.x, 8.6*scale.y, -10.2*scale.x, 0.5*scale.y);
     endShape();
-    popMatrix(); //座標軸の位置をスタックから取り出すし設定する ... この場合(200,200)
+    popMatrix();//座標軸の位置をスタックから取り出すし設定する...この場合(200,200)
 
     //head
-    pushMatrix(); //(200, 200)を原点とする座標軸をスタックに格納
-    scale(scale.x, scale.y); // 座標を 幅2.0倍, 高さ4.0倍に拡大
+    pushMatrix();//(200,200)を原点とする座標軸をスタックに格納
+    // Can't use scale() function on Javascript Mode,
+    //scale(scale.x, scale.y); 
     noStroke();
     fill(c);
     rotate(radians(-radian+10));
 
+    // Can't use scale() function on Javascript Mode,
+    /*===========================*/
+    //    beginShape();
+    //    vertex(0, 0);
+    //    bezierVertex(-2, -1.9, -3.4, -2, -12.6, -9);
+    //    bezierVertex(-20.3, -14.2, -24.8, -22.8, -30.7, -29.7);
+    //    bezierVertex(-31, -23.3, -32.7, -23.8, -34.3, -23.2);
+    //    bezierVertex(-35.1, -22.8, -35.4, -18.1, -36.4, -17.8);
+    //    bezierVertex(-38.9, -17.1, -40.3, -16.3, -41.1, -12.8);
+    //    bezierVertex(-44.4, -10.1, -39.9, -33.6, -31.9, -39.2);
+    //    bezierVertex(-33.7, -49, -34.9, -71.6, -30.7, -72.7);
+    //    bezierVertex(-28.6, -76.5, -6.4, -62.9, -1.3, -52.9);
+    //    bezierVertex(-1.3, -52.9, 14.4, -56.1, 25, -39.8);
+    //    bezierVertex(17.7, -42.6, 15.6, -45.2, 12, -44.4);
+    //    bezierVertex(11.3, -44.2, 10.5, -44.3, 9.8, -44.5);
+    //    bezierVertex(8.9, -44.8, 7.3, -45.2, 4.9, -44.8);
+    //    bezierVertex(8.8, -38.6, 10.8, -11.3, 6.7, -0.3);
+    //
+    //    endShape();
+    /*===========================*/
+
     beginShape();
-    vertex(0, 0);
-    bezierVertex(-2, -1.9, -3.4, -2, -12.6, -9);
-    bezierVertex(-20.3, -14.2, -24.8, -22.8, -30.7, -29.7);
-    bezierVertex(-31, -23.3, -32.7, -23.8, -34.3, -23.2);
-    bezierVertex(-35.1, -22.8, -35.4, -18.1, -36.4, -17.8);
-    bezierVertex(-38.9, -17.1, -40.3, -16.3, -41.1, -12.8);
-    bezierVertex(-44.4, -10.1, -39.9, -33.6, -31.9, -39.2);
-    bezierVertex(-33.7, -49, -34.9, -71.6, -30.7, -72.7);
-    bezierVertex(-28.6, -76.5, -6.4, -62.9, -1.3, -52.9);
-    bezierVertex(-1.3, -52.9, 14.4, -56.1, 25, -39.8);
-    bezierVertex(17.7, -42.6, 15.6, -45.2, 12, -44.4);
-    bezierVertex(11.3, -44.2, 10.5, -44.3, 9.8, -44.5);
-    bezierVertex(8.9, -44.8, 7.3, -45.2, 4.9, -44.8);
-    bezierVertex(8.8, -38.6, 10.8, -11.3, 6.7, -0.3);
+    vertex(0.0*scale.x, 0.0*scale.y);
+    bezierVertex(-2.0*scale.x, -1.9*scale.y, -3.4*scale.x, -2.0*scale.y, -12.6*scale.x, -9.0*scale.y);
+    bezierVertex(-20.3*scale.x, -14.2*scale.y, -24.8*scale.x, -22.8*scale.y, -30.7*scale.x, -29.7*scale.y);
+    bezierVertex(-31.0*scale.x, -23.3*scale.y, -32.7*scale.x, -23.8*scale.y, -34.3*scale.x, -23.2*scale.y);
+    bezierVertex(-35.1*scale.x, -22.8*scale.y, -35.4*scale.x, -18.1*scale.y, -36.4*scale.x, -17.8*scale.y);
+    bezierVertex(-38.9*scale.x, -17.1*scale.y, -40.3*scale.x, -16.3*scale.y, -41.1*scale.x, -12.8*scale.y);
+    bezierVertex(-44.4*scale.x, -10.1*scale.y, -39.9*scale.x, -33.6*scale.y, -31.9*scale.x, -39.2*scale.y);
+    bezierVertex(-33.7*scale.x, -49.0*scale.y, -34.9*scale.x, -71.6*scale.y, -30.7*scale.x, -72.7*scale.y);
+    bezierVertex(-28.6*scale.x, -76.5*scale.y, -6.4*scale.x, -62.9*scale.y, -1.3*scale.x, -52.9*scale.y);
+    bezierVertex(-1.3*scale.x, -52.9*scale.y, 14.4*scale.x, -56.1*scale.y, 25.0*scale.x, -39.8*scale.y);
+    bezierVertex(17.7*scale.x, -42.6*scale.y, 15.6*scale.x, -45.2*scale.y, 12.0*scale.x, -44.4*scale.y);
+    bezierVertex(11.3*scale.x, -44.2*scale.y, 10.5*scale.x, -44.3*scale.y, 9.8*scale.x, -44.5*scale.y);
+    bezierVertex(8.9*scale.x, -44.8*scale.y, 7.3*scale.x, -45.2*scale.y, 4.9*scale.x, -44.8*scale.y);
+    bezierVertex(8.8*scale.x, -38.6*scale.y, 10.8*scale.x, -11.3*scale.y, 6.7*scale.x, -0.3*scale.y);
 
     endShape();
+
     popMatrix(); 
-    popMatrix(); //座標軸の位置をスタックから取り出すし設定する ... この場合(0, 0)
+    popMatrix();
   }
 }
 
@@ -172,7 +214,7 @@ class Waterweed {
     }
   }
   void display() {
-     
+
     pushMatrix();
     translate(location.x, location.y);
     rotate(radians(radian));
@@ -447,9 +489,9 @@ Kingyo[] kingyos = new Kingyo[10];
 RippleManager rippleManager;
 
 Waterweed waterweeds[];
-
+Kingyo kingyo;
 void setup() {
-  size(800, 600);
+  size(600, 400);
 
   rippleManager = new RippleManager();
   waterweeds = new Waterweed[3];
@@ -460,11 +502,15 @@ void setup() {
   waterweeds[2] = new Waterweed(new PVector(180, height));    
   waterweeds[2].radian = 3;
 
+  float scale = random(0.2, 1.2);
+  int x = int(random(width -50 * scale) + 50 * scale);
+  int y = int(random(height -50 * scale) + 50 * scale);
+
   for (int i = 0; i < kingyos.length; i++) {
-    float size = random(0.2, 1.2);
-    int x = int(random(width -50 * size) + 50 * size);
-    int y = int(random(height -50 * size) + 50 * size);
-    kingyos[i] =  new Kingyo(new PVector(x, y), new PVector(size, size));
+    float scale = random(0.6, 1.2);
+    int x = int(random(width -50 * scale) + 50 * scale);
+    int y = int(random(height -50 * scale) + 50 * scale);
+    kingyos[i] =  new Kingyo(new PVector(x, y), new PVector(scale, scale));
     if (i % 2 == 0) {
       kingyos[i].c = color(200, 0, 0);
     } else {
@@ -477,7 +523,7 @@ void draw() {
   background(255);
   rippleManager.update();
   rippleManager.display();
-  for(Waterweed waterweed :waterweeds){
+  for (Waterweed waterweed : waterweeds) {
     waterweed.update();
     waterweed.display();
   }
@@ -486,3 +532,4 @@ void draw() {
     kingyo.display();
   }
 }
+
