@@ -9,10 +9,10 @@ public class RippleManager {
     ArrayList<Integer> removes = new ArrayList<Integer>();
 
     for (int i = 0; i < scales.size (); i++) {
-      PVector scale = scales.get(i);
-      scale.add(new PVector(5, 5));
-      println("x:" + scale.x + "y:" + scale.y);
-      if (scale.x > width & scale.y > height ) {
+      PVector scaleSize = scales.get(i);
+      scaleSize.add(new PVector(5, 5));
+      println("x:" + scaleSize.x + "y:" + scaleSize.y);
+      if (scaleSize.x > width & scaleSize.y > height ) {
         removes.add(i);
       }
     }    
@@ -40,7 +40,7 @@ class Kingyo {
 
   //property
   PVector location = new PVector();
-  PVector scale = new PVector();
+  PVector scaleSize = new PVector();
   PVector destination = new PVector();
   PVector acceleration = new PVector();
   PVector velocity = new PVector();
@@ -48,23 +48,23 @@ class Kingyo {
 
   Kingyo() {
     location = new PVector(0, 0);
-    scale = new PVector(1, 1);
+    scaleSize = new PVector(1, 1);
     acceleration = new PVector(0, 0);
     velocity = new PVector(0, 0);
-    int x = int(random(width -50 * scale.x) + 50 * scale.x);
-    int y = int(random(height -50 * scale.y) + 50 * scale.y);
+    int x = int(random(width -50 * scaleSize.x) + 50 * scaleSize.x);
+    int y = int(random(height -50 * scaleSize.y) + 50 * scaleSize.y);
     destination = new PVector(x, y);
   }
-  Kingyo(PVector location, PVector scale) {
+  Kingyo(PVector location, PVector scaleSize) {
     this();
     this.location =location;
-    this.scale = scale;
+    this.scaleSize = scaleSize;
   }
 
   void update() {
     if (location.dist(destination) < 5) {
-      int x = int(random(width -50 * scale.x) + 50 * scale.x);
-      int y = int(random(height -50 * scale.y) + 50 * scale.y);
+      int x = int(random(width -50 * scaleSize.x) + 50 * scaleSize.x);
+      int y = int(random(height -50 * scaleSize.y) + 50 * scaleSize.y);
       destination = new PVector(x, y);
     }
 
@@ -94,7 +94,7 @@ class Kingyo {
     rotate(theta - PI / 2);
     //tail
     pushMatrix(); //(200, 200)を原点とする座標軸をスタックに格納
-    scale(scale.x, scale.y); // 座標を 幅2.0倍, 高さ4.0倍に拡大
+    scale(scaleSize.x, scaleSize.y); // 座標を 幅2.0倍, 高さ4.0倍に拡大
     noStroke();
     fill(c);
     translate(10, -10); // 座標軸を 右に60px, 下に20px移動
@@ -119,7 +119,7 @@ class Kingyo {
 
     //head
     pushMatrix(); //(200, 200)を原点とする座標軸をスタックに格納
-    scale(scale.x, scale.y); // 座標を 幅2.0倍, 高さ4.0倍に拡大
+    scale(scaleSize.x, scaleSize.y); // 座標を 幅2.0倍, 高さ4.0倍に拡大
     noStroke();
     fill(c);
     rotate(radians(-radian+10));
